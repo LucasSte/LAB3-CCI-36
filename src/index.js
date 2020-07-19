@@ -2,6 +2,7 @@ import * as THREE from "../three.js/build/three.module.js";
 import {OrbitControls} from "../three.js/examples/jsm/controls/OrbitControls.js";
 import {GLTFLoader} from "../three.js/examples/jsm/loaders/GLTFLoader.js";
 import Clouds from "./clouds.js";
+import * as dat from "../dat.gui/build/dat.gui.module.js";
 
 let scene = new THREE.Scene();
 let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
@@ -34,6 +35,16 @@ camera.position.x = 0;
 camera.position.z = 15;
 
 controls.update();
+
+const panel = new dat.GUI({autoPlace: true});
+panel.domElement.id = 'gui';
+let folder = panel.addFolder('Sun');
+let params = {
+    'Position': 0
+}
+folder.add(params, 'Position', -1, 1).step(0.01).onChange(function (value) {
+    console.log(value);
+});
 
 var animate = function () {
     requestAnimationFrame( animate );
