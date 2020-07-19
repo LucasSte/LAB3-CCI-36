@@ -38,6 +38,7 @@ controls.update();
 var animate = function () {
     requestAnimationFrame( animate );
     renderer.render( scene, camera );
+    clouds.animate();
 };
 
 animate();
