@@ -36,6 +36,9 @@ scene.add( helper );
 let ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
 scene.add(ambientLight);
 
+let allObjectsGroup = new THREE.Group();
+
+
 let loader = new GLTFLoader();
 loader.load('./src/models/Low_Poly_Island_no_clouds.glb', function (gltf) {
     let obj = gltf.scene;
@@ -68,11 +71,14 @@ loader.load('./src/models/Low_Poly_Island_no_clouds.glb', function (gltf) {
             }
         }
     })
-    scene.add(obj);
+    //scene.add(obj);
+    allObjectsGroup.add(obj);
 });
 
 let clouds = new Clouds("./src/models/");
-clouds.load(scene, camera);
+clouds.load(allObjectsGroup);
+
+scene.add(allObjectsGroup);
 
 let controls = new OrbitControls(camera, renderer.domElement);
 camera.position.y = 10;
@@ -164,6 +170,17 @@ let lastMousePos = new THREE.Vector2();
 
 let cloudsArr = [clouds.cloudFR, clouds.cloudBR, clouds.cloudFL, clouds.cloudBL];
 
+function keyDown(event) {
+    if(event.which === 74)
+    {
+        allObjectsGroup.rotateY(-0.01);
+    }
+    else if(event.which === 76)
+    {
+        allObjectsGroup.rotateY(0.01);
+    }
+}
+
 function onMouseMove(event) {
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
     mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
@@ -218,5 +235,6 @@ var animate = function () {
 window.addEventListener('mousemove', onMouseMove, false);
 window.addEventListener('mousedown', onMouseDown, false);
 window.addEventListener('mouseup', onMouseUp, false);
+window.addEventListener('keydown', keyDown, false);
 
 animate();

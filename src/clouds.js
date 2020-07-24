@@ -15,7 +15,7 @@ class Clouds
     BRt = 0.006;
     FRt = 0.006;
 
-    load(scene)
+    load(allGroup)
     {
         let scale = 0.5;
         let loader = new GLTFLoader();
@@ -43,7 +43,7 @@ class Clouds
 
         this.cloudBL = group;
         this.cloudBL.position.set(-3, 13, 4);
-        scene.add(this.cloudBL);
+        //scene.add(this.cloudBL);
 
         const group2 = new THREE.Group();
         loader.load("CloudFL.glb", function (gltf) {
@@ -65,7 +65,7 @@ class Clouds
 
         this.cloudFL = group2;
         this.cloudFL.position.set(2, 11.5, 3);
-        scene.add(this.cloudFL);
+        //scene.add(this.cloudFL);
 
         const group3 = new THREE.Group();
         loader.load("CloudBR.glb", function (gltf) {
@@ -87,7 +87,7 @@ class Clouds
 
         this.cloudBR = group3;
         this.cloudBR.position.set(-4, 13, -4);
-        scene.add(this.cloudBR);
+        //scene.add(this.cloudBR);
 
         const group4 = new THREE.Group();
         loader.load("CloudFR.glb", function (gltf) {
@@ -109,7 +109,12 @@ class Clouds
 
         this.cloudFR = group4;
         this.cloudFR.position.set(3, 12, -2);
-        scene.add(this.cloudFR);
+        //scene.add(this.cloudFR);
+
+        allGroup.add(this.cloudFR);
+        allGroup.add(this.cloudBR);
+        allGroup.add(this.cloudFL);
+        allGroup.add(this.cloudBL);
     }
 
     animateBL()
