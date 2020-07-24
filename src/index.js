@@ -27,7 +27,7 @@ loader.load('./src/models/Low_Poly_Island_no_clouds.glb', function (gltf) {
 });
 
 let clouds = new Clouds("./src/models/");
-clouds.load(scene);
+clouds.load(scene, camera);
 
 let controls = new OrbitControls(camera, renderer.domElement);
 camera.position.y = 10;
@@ -107,10 +107,71 @@ gui.add( effectController, "azimuth", 0, 0.5, 0.001 ).onChange( guiChanged );
 
 guiChanged();
 
+let raycaster = new THREE.Raycaster();
+let mouse = new THREE.Vector2();
+
+let objColor;
+
+let intersects;
+let clickedObject;
+let down = false;
+let lastMousePos = new THREE.Vector2();
+
+let cloudsArr = [clouds.cloudFR, clouds.cloudBR, clouds.cloudFL, clouds.cloudBL];
+
+function onMouseMove(event) {
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+    intersects = raycaster.intersectObjects(cloudsArr, true);
+    if(down === true)
+    {
+        if(mouse.y > lastMousePos.y)
+            clickedObject.position.y += 0.1;
+        else if(mouse.y < lastMousePos.y)
+            clickedObject.position.y -= 0.1;
+    }
+    lastMousePos.x = mouse.x;
+    lastMousePos.y = mouse.y;
+
+    controls.enabled = intersects.length <= 1;
+}
+
+function onMouseDown(event) {
+
+    if(intersects.length > 1)
+    {
+        down = true;
+        objColor = intersects[1].object.material.color.getHex();
+        clickedObject = intersects[1].object;
+        intersects[1].object.material.color.set(Math.random() * 0xffffff);
+        controls.enabled = false;
+    }
+}
+
+function onMouseUp(event) {
+    if (clickedObject != null)
+    {
+        down = false;
+        clickedObject.material.color.set(objColor);
+        controls.enabled = true;
+        clickedObject = null;
+    }
+}
+
 var animate = function () {
+    raycaster.setFromCamera(mouse, camera);
+
+
     requestAnimationFrame( animate );
     renderer.render( scene, camera );
-    clouds.animate();
+    if(clickedObject == null)
+    {
+        clouds.animate();
+    }
 };
+
+window.addEventListener('mousemove', onMouseMove, false);
+window.addEventListener('mousedown', onMouseDown, false);
+window.addEventListener('mouseup', onMouseUp, false);
 
 animate();
