@@ -1,5 +1,5 @@
-import {GLTFLoader} from "../three.js/examples/jsm/loaders/GLTFLoader.js";
-import * as THREE from "../three.js/build/three.module.js";
+import {GLTFLoader} from "./three_src/GLTFLoader.js";
+import * as THREE from "./three_src/three.module.js";
 
 class Clouds
 {

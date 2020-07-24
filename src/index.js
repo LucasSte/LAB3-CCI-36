@@ -1,10 +1,9 @@
-import * as THREE from "../three.js/build/three.module.js";
-import {OrbitControls} from "../three.js/examples/jsm/controls/OrbitControls.js";
-import {GLTFLoader} from "../three.js/examples/jsm/loaders/GLTFLoader.js";
+import * as THREE from "./three_src/three.module.js";
+import {OrbitControls} from "./three_src/OrbitControls.js";
+import {GLTFLoader} from "./three_src/GLTFLoader.js";
 import Clouds from "./clouds.js";
-import { Sky } from "../three.js/examples/jsm/objects/Sky.js";
-import * as dat from "../dat.gui/build/dat.gui.module.js";
-import {BufferGeometryUtils} from "../three.js/examples/jsm/utils/BufferGeometryUtils.js"
+import { Sky } from "./three_src/Sky.js";
+import * as dat from "./three_src/dat.gui.module.js";
 
 let scene = new THREE.Scene();
 let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
