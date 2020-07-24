@@ -72,7 +72,7 @@ scene.add(water)
 let texture = THREE.ImageUtils.loadTexture("./textures/floor.jpg");
 texture.wrapS = THREE.RepeatWrapping;
 texture.wrapT = THREE.RepeatWrapping;
-texture.repeat.set(100, 100);
+texture.repeat.set(1000, 1000);
 // let material = new THREE.MeshPhongMaterial({map:texture});
 
 let floorGeometry = new THREE.PlaneBufferGeometry( 10000, 10000 );
