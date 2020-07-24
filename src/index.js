@@ -5,7 +5,6 @@ import Clouds from "./clouds.js";
 import { Sky } from "./three_src/Sky.js";
 import * as dat from "./three_src/dat.gui.module.js";
 import { Water } from './three_src/Water2.js';
-//import { Water } from '../three.js/examples/jsm/objects/Water2.js';
 
 let scene = new THREE.Scene();
 let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
@@ -54,7 +53,7 @@ loader.load('./src/models/Low_Poly_Island_Ground.glb', function (gltf) {
 });
 
 // Water
-let waterGeometry = new THREE.PlaneBufferGeometry( 100, 100 );
+let waterGeometry = new THREE.PlaneBufferGeometry( 200, 200 );
 let water = new Water( waterGeometry,
     {
         color: '#009dff',
@@ -67,7 +66,24 @@ let water = new Water( waterGeometry,
 );
 water.position.y = 5.6;
 water.rotation.x = Math.PI * - 0.5;
-allObjectsGroup.add(water);
+scene.add(water)
+
+
+let texture = THREE.ImageUtils.loadTexture("./textures/floor.jpg");
+texture.wrapS = THREE.RepeatWrapping;
+texture.wrapT = THREE.RepeatWrapping;
+texture.repeat.set(100, 100);
+// let material = new THREE.MeshPhongMaterial({map:texture});
+
+let floorGeometry = new THREE.PlaneBufferGeometry( 10000, 10000 );
+let material = new THREE.MeshBasicMaterial({map:texture});
+// material.color.setHex('#000000');
+let plane = new THREE.Mesh(floorGeometry, material);
+plane.receiveShadow = true;
+plane.position.y = -100;
+plane.rotation.x = Math.PI * - 0.5;
+scene.add(plane);
+
 
 // loader.load('./src/models/Water.glb', function (gltf) {
 //     gltf.scene.traverse(function (child) {
