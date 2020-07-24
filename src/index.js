@@ -18,15 +18,15 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 document.body.appendChild(renderer.domElement);
 
 let light = new THREE.PointLight(0xffffff);
-light.position.set(0, 20, 10);
-//light.power
 light.castShadow = true;
-light.shadow.camera.near = 0.1;
-light.shadow.camera.far = 1000;
-light.shadow.mapSize.width = 2048;
-light.shadow.mapSize.height = 2048;
+light.shadow.camera.near = 1;
+light.shadow.camera.far = 30;
+light.shadow.mapSize.width = 4096;
+light.shadow.mapSize.height = 4096;
 light.shadow.bias = -0.001;
 scene.add(light);
+// let helper = new THREE.CameraHelper( light.shadow.camera );
+// scene.add( helper );
 
 let ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
 scene.add(ambientLight);
@@ -133,9 +133,9 @@ function guiChanged() {
     sun.z = Math.sin( phi ) * Math.cos( theta );
 
     skyUniforms[ "sunPosition" ].value.copy( sun );
-    light.position.x = sun.x*1000;
-    light.position.y = sun.y*1000;
-    light.position.z = sun.z*1000;
+    light.position.x = sun.x*20;
+    light.position.y = sun.y*20;
+    light.position.z = sun.z*20;
 
     renderer.render( scene, camera );
 
