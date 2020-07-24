@@ -4,6 +4,7 @@ import {GLTFLoader} from "../three.js/examples/jsm/loaders/GLTFLoader.js";
 import Clouds from "./clouds.js";
 import { Sky } from "../three.js/examples/jsm/objects/Sky.js";
 import * as dat from "../dat.gui/build/dat.gui.module.js";
+import {BufferGeometryUtils} from "../three.js/examples/jsm/utils/BufferGeometryUtils.js"
 
 let scene = new THREE.Scene();
 let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
@@ -11,18 +12,57 @@ let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHei
 let renderer = new THREE.WebGLRenderer({antialias: true});
 renderer.setClearColor(0x787e74, 1);
 renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
 document.body.appendChild(renderer.domElement);
 
 let light = new THREE.PointLight(0xffffff);
 light.position.set(0, 20, 10);
 //light.power
+light.castShadow = true;
+light.shadow.camera.near = 0.1;
+light.shadow.camera.far = 1000;
+light.shadow.mapSize.width = 2048;
+light.shadow.mapSize.height = 2048;
+light.shadow.bias = -0.001;
 scene.add(light);
+
+let ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+scene.add(ambientLight);
 
 let loader = new GLTFLoader();
 loader.load('./src/models/Low_Poly_Island_no_clouds.glb', function (gltf) {
     let obj = gltf.scene;
     obj.scale.set(0.5, 0.5 , 0.5);
+
+    obj.traverse(function (child) {
+        child.castShadow = true;
+        child.receiveShadow = true;
+        child.flatShading = false;
+        if ( child instanceof THREE.Object3D ) {
+            if(child.geometry !== undefined){
+                // console.log("~ geometry ~");
+                // console.log(child.geometry);
+
+                // let geo = new THREE.Geometry().fromBufferGeometry( child.geometry );
+                // geo.mergeVertices();
+                // geo.computeVertexNormals();
+                // child.geometry.fromGeometry( geo );
+
+                // let mergedGeometry = BufferGeometryUtils.mergeVertices(child.geometry, 1);
+                // mergedGeometry.computeVertexNormals();
+                // child.geometry = mergedGeometry;
+
+                child.geometry.computeVertexNormals();
+
+
+                // console.log("~ smooth geometry ~");
+                // console.log(child.geometry);
+
+            }
+        }
+    })
     scene.add(obj);
 });
 
