@@ -49,7 +49,8 @@ loader.load('./src/models/Low_Poly_Island_Ground.glb', function (gltf) {
         child.castShadow = true;
         child.receiveShadow = true;
     })
-    scene.add(obj);
+    //scene.add(obj);
+    allObjectsGroup.add(obj);
 });
 
 // Water
@@ -66,7 +67,7 @@ let water = new Water( waterGeometry,
 );
 water.position.y = 5.6;
 water.rotation.x = Math.PI * - 0.5;
-allObjectsGroup.add(water)
+allObjectsGroup.add(water);
 
 // loader.load('./src/models/Water.glb', function (gltf) {
 //     gltf.scene.traverse(function (child) {
