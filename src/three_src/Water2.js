@@ -20,9 +20,9 @@ import {
 	UniformsUtils,
 	Vector2,
 	Vector4
-} from "../../../build/three.module.js";
-import { Reflector } from "../objects/Reflector.js";
-import { Refractor } from "../objects/Refractor.js";
+} from "./three.module.js";
+import { Reflector } from "./Reflector.js";
+import { Refractor } from "./Refractor.js";
 
 var Water = function ( geometry, options ) {
 
