@@ -17,16 +17,21 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
 document.body.appendChild(renderer.domElement);
 
-let light = new THREE.PointLight(0xffffff);
+let light = new THREE.DirectionalLight(0xffffff);
 light.castShadow = true;
 light.shadow.camera.near = 1;
 light.shadow.camera.far = 30;
+let d = 15;
+light.shadow.camera.top = d;
+light.shadow.camera.bottom = -d;
+light.shadow.camera.right = d;
+light.shadow.camera.left = - d;
 light.shadow.mapSize.width = 4096;
 light.shadow.mapSize.height = 4096;
 light.shadow.bias = -0.001;
 scene.add(light);
-// let helper = new THREE.CameraHelper( light.shadow.camera );
-// scene.add( helper );
+let helper = new THREE.CameraHelper( light.shadow.camera );
+scene.add( helper );
 
 let ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
 scene.add(ambientLight);
