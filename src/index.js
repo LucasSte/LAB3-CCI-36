@@ -4,6 +4,8 @@ import {GLTFLoader} from "./three_src/GLTFLoader.js";
 import Clouds from "./clouds.js";
 import { Sky } from "./three_src/Sky.js";
 import * as dat from "./three_src/dat.gui.module.js";
+// import { Water } from './three_src/Water2.js';
+import { Water } from '../three.js/examples/jsm/objects/Water2.js';
 
 let scene = new THREE.Scene();
 let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
@@ -25,53 +27,69 @@ light.shadow.camera.top = d;
 light.shadow.camera.bottom = -d;
 light.shadow.camera.right = d;
 light.shadow.camera.left = - d;
-light.shadow.mapSize.width = 4096;
-light.shadow.mapSize.height = 4096;
+light.shadow.mapSize.width = 1024;
+light.shadow.mapSize.height = 1024;
 light.shadow.bias = -0.001;
 scene.add(light);
-let helper = new THREE.CameraHelper( light.shadow.camera );
-scene.add( helper );
+// let helper = new THREE.CameraHelper( light.shadow.camera );
+// scene.add( helper );
 
 let ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
 scene.add(ambientLight);
 
 let allObjectsGroup = new THREE.Group();
 
-
+// Ground
 let loader = new GLTFLoader();
-loader.load('./src/models/Low_Poly_Island_no_clouds.glb', function (gltf) {
+loader.load('./src/models/Low_Poly_Island_Ground.glb', function (gltf) {
     let obj = gltf.scene;
     obj.scale.set(0.5, 0.5 , 0.5);
 
     obj.traverse(function (child) {
         child.castShadow = true;
         child.receiveShadow = true;
-        child.flatShading = false;
+    })
+    scene.add(obj);
+});
+
+// Water
+// let waterGeometry = new THREE.PlaneBufferGeometry( 100, 100 );
+// let water = new Water( waterGeometry,
+//     {
+//         color: '#009dff',
+//         // color: '#ffffff',
+//         scale: 10,
+//         flowDirection: new THREE.Vector2( 1, 1),
+//         textureWidth: 1024,
+//         textureHeight: 1024
+//     }
+// );
+// water.position.y = 5.6;
+// water.rotation.x = Math.PI * - 0.5;
+// allObjectsGroup.add(water)
+
+loader.load('./src/models/Water.glb', function (gltf) {
+    gltf.scene.traverse(function (child) {
         if ( child instanceof THREE.Object3D ) {
-            if(child.geometry !== undefined){
-                // console.log("~ geometry ~");
-                // console.log(child.geometry);
-
-                // let geo = new THREE.Geometry().fromBufferGeometry( child.geometry );
-                // geo.mergeVertices();
-                // geo.computeVertexNormals();
-                // child.geometry.fromGeometry( geo );
-
-                // let mergedGeometry = BufferGeometryUtils.mergeVertices(child.geometry, 1);
-                // mergedGeometry.computeVertexNormals();
-                // child.geometry = mergedGeometry;
-
-                child.geometry.computeVertexNormals();
-
-
-                // console.log("~ smooth geometry ~");
-                // console.log(child.geometry);
+            if(child.geometry !== undefined) {
+                let waterGeometry = child.geometry;
+                let water = new Water( waterGeometry,
+                    {
+                        color: '#009dff',
+                        // color: '#ffffff',
+                        scale: 10,
+                        flowDirection: new THREE.Vector2( 1, 1),
+                        textureWidth: 1024,
+                        textureHeight: 1024
+                    }
+                );
+                water.position.set(0, 5.72, 0);
+                water.scale.set(10, 10, 10);
+                allObjectsGroup.add(water)
 
             }
         }
     })
-    //scene.add(obj);
-    allObjectsGroup.add(obj);
 });
 
 let clouds = new Clouds("./src/models/");

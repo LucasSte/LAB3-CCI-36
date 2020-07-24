@@ -31,12 +31,6 @@ class Clouds
             incomingObj.traverse(function (child) {
                 child.castShadow = true;
                 child.receiveShadow = true;
-                child.flatShading = false;
-                if ( child instanceof THREE.Object3D ) {
-                    if(child.geometry !== undefined) {
-                        child.geometry.computeVertexNormals();
-                    }
-                }
             })
             group.add(incomingObj);
         });
@@ -53,12 +47,6 @@ class Clouds
             incomingObj.traverse(function (child) {
                 child.castShadow = true;
                 child.receiveShadow = true;
-                child.flatShading = false;
-                if ( child instanceof THREE.Object3D ) {
-                    if(child.geometry !== undefined) {
-                        child.geometry.computeVertexNormals();
-                    }
-                }
             })
             group2.add(incomingObj);
         });
@@ -75,12 +63,6 @@ class Clouds
             incomingObj.traverse(function (child) {
                 child.castShadow = true;
                 child.receiveShadow = true;
-                child.flatShading = false;
-                if ( child instanceof THREE.Object3D ) {
-                    if(child.geometry !== undefined) {
-                        child.geometry.computeVertexNormals();
-                    }
-                }
             })
             group3.add(incomingObj);
         });
@@ -97,12 +79,6 @@ class Clouds
             incomingObj.traverse(function (child) {
                 child.castShadow = true;
                 child.receiveShadow = true;
-                child.flatShading = false;
-                if ( child instanceof THREE.Object3D ) {
-                    if(child.geometry !== undefined) {
-                        child.geometry.computeVertexNormals();
-                    }
-                }
             })
             group4.add(incomingObj);
         });
