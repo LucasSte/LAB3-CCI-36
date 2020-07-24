@@ -27,6 +27,17 @@ class Clouds
         loader.load("CloudBL.glb", function (gltf) {
             incomingObj = gltf.scene;
             incomingObj.scale.set(scale, scale, scale);
+
+            incomingObj.traverse(function (child) {
+                child.castShadow = true;
+                child.receiveShadow = true;
+                child.flatShading = false;
+                if ( child instanceof THREE.Object3D ) {
+                    if(child.geometry !== undefined) {
+                        child.geometry.computeVertexNormals();
+                    }
+                }
+            })
             group.add(incomingObj);
         });
 
@@ -38,6 +49,17 @@ class Clouds
         loader.load("CloudFL.glb", function (gltf) {
             incomingObj = gltf.scene;
             incomingObj.scale.set(scale, scale, scale);
+
+            incomingObj.traverse(function (child) {
+                child.castShadow = true;
+                child.receiveShadow = true;
+                child.flatShading = false;
+                if ( child instanceof THREE.Object3D ) {
+                    if(child.geometry !== undefined) {
+                        child.geometry.computeVertexNormals();
+                    }
+                }
+            })
             group2.add(incomingObj);
         });
 
@@ -49,6 +71,17 @@ class Clouds
         loader.load("CloudBR.glb", function (gltf) {
             incomingObj = gltf.scene;
             incomingObj.scale.set(scale, scale, scale);
+
+            incomingObj.traverse(function (child) {
+                child.castShadow = true;
+                child.receiveShadow = true;
+                child.flatShading = false;
+                if ( child instanceof THREE.Object3D ) {
+                    if(child.geometry !== undefined) {
+                        child.geometry.computeVertexNormals();
+                    }
+                }
+            })
             group3.add(incomingObj);
         });
 
@@ -60,6 +93,17 @@ class Clouds
         loader.load("CloudFR.glb", function (gltf) {
             incomingObj = gltf.scene;
             incomingObj.scale.set(scale, scale, scale);
+
+            incomingObj.traverse(function (child) {
+                child.castShadow = true;
+                child.receiveShadow = true;
+                child.flatShading = false;
+                if ( child instanceof THREE.Object3D ) {
+                    if(child.geometry !== undefined) {
+                        child.geometry.computeVertexNormals();
+                    }
+                }
+            })
             group4.add(incomingObj);
         });
 
