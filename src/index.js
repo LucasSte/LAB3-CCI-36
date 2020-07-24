@@ -107,37 +107,17 @@ function guiChanged() {
     let theta = Math.PI * -0.5;
     let phi = 2 * Math.PI * ( effectController.azimuth - 0.5 );
 
-    if(effectController.azimuth < 0.004 || effectController.azimuth > 0.498)
+    if(effectController.azimuth < 0.030)
     {
-        light.color.set(0xff9448);
+        light.color.set(0xff9448 + (effectController.azimuth)/0.03 * (0xffffff - 0xff9448));
     }
-    else if(effectController.azimuth < 0.010)
-    {
-        light.color.set(0xfffe95);
-    }
-    else if(effectController.azimuth < 0.015)
-    {
-        light.color.set(0xffffbc);
-    }
-    else if(effectController.azimuth < 0.030)
-    {
-        light.color.set(0xfffff6);
-    }
-    else if(effectController.azimuth < 0.470)
+    else if(effectController.azimuth < 0.472)
     {
         light.color.set(0xffffff);
     }
-    else if(effectController.azimuth < 0.487)
+    else
     {
-        light.color.set(0xfffff6);
-    }
-    else if(effectController.azimuth < 0.492)
-    {
-        light.color.set(0xfffe95);
-    }
-    else if(effectController.azimuth < 0.498)
-    {
-        light.color.set(0xff9448);
+        light.color.set(0xff9448 + ((effectController.azimuth*100 - 50) / 3) * (0xffffff - 0xff9448));
     }
     sun.x = Math.cos( phi );
     sun.y = Math.sin( phi ) * Math.sin( theta );
