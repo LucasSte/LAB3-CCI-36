@@ -73,13 +73,10 @@ let texture = THREE.ImageUtils.loadTexture("./textures/floor.jpg");
 texture.wrapS = THREE.RepeatWrapping;
 texture.wrapT = THREE.RepeatWrapping;
 texture.repeat.set(1000, 1000);
-// let material = new THREE.MeshPhongMaterial({map:texture});
 
 let floorGeometry = new THREE.PlaneBufferGeometry( 10000, 10000 );
 let material = new THREE.MeshBasicMaterial({map:texture});
-// material.color.setHex('#000000');
 let plane = new THREE.Mesh(floorGeometry, material);
-plane.receiveShadow = true;
 plane.position.y = -100;
 plane.rotation.x = Math.PI * - 0.5;
 scene.add(plane);
