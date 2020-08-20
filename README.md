@@ -1,4 +1,4 @@
-# LAB3-CCI-36
+# Paradise Island (3D Scene)
 
 This is the final project for a computer graphics class. It shows an inland with moving clouds and water texture.
 The user can set the sun's azimuth, changing its position and its color. When a user clicks on a cloud, he/she can change its height. To rotate the island, the user can press J or L.
